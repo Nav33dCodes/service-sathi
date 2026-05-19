@@ -381,6 +381,21 @@ curl -X POST http://localhost:8000/api/request \
 
 ---
 
+## 📌 Assumptions & Limitations
+
+### Assumptions
+- **Location Context**: User queries are assumed to refer to regions in Pakistan (the geocoder automatically appends `, Pakistan` to resolve local neighborhood coordinates like `G-13` or `Clifton`).
+- **Billing Credentials**: The deployment environment has billing enabled on Google Cloud Platform to use the Maps & Geocoding SDK services.
+- **LLM Access**: External connection to the Groq API cloud service is uninterrupted for intent parsing.
+
+### Limitations
+- **Haversine Distance**: To keep execution fast and prevent high Google Maps API route calculation costs, provider distance is calculated as a straight-line (Haversine) path rather than turn-by-turn road distance.
+- **Voice Recognition**: Accuracy of the Speech-to-Text translation is dependent on device hardware, ambient noise, and microphone quality.
+- **Mock Data**: Provider availability and details are simulated in a seeded local database for the demo.
+- **Dynamic Notifications**: Real-world SMS/Email notifications are simulated in the agent trace log pipeline and database state changes, rather than dispatched via live telecommunication gateways.
+
+---
+
 ## ❓ Troubleshooting
 
 | Problem | Solution |
