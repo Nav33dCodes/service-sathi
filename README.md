@@ -1,19 +1,28 @@
 <div align="center">
 
-# 🤖 ServiceSathi AI
-### *Ghar ki zaroorat, ek awaaz mein.*
+<img src="https://capsule-render.vercel.app/api?type=waving&color=0:0d1117,50:0a3d62,100:1e3799&height=200&section=header&text=ServiceSathi%20AI&fontSize=60&fontColor=ffffff&fontAlignY=38&desc=Ghar%20ki%20zaroorat%2C%20ek%20awaaz%20mein.&descAlignY=58&descSize=20&animation=fadeIn" width="100%"/>
 
-![Python](https://img.shields.io/badge/Python-3.11-blue?style=for-the-badge&logo=python)
-![FastAPI](https://img.shields.io/badge/FastAPI-0.115-009688?style=for-the-badge&logo=fastapi)
-![Flutter](https://img.shields.io/badge/Flutter-3.x-02569B?style=for-the-badge&logo=flutter)
-![PostgreSQL](https://img.shields.io/badge/PostgreSQL-Railway-336791?style=for-the-badge&logo=postgresql)
-![Groq](https://img.shields.io/badge/Groq-LLaMA_3.1-orange?style=for-the-badge)
-![Google Maps](https://img.shields.io/badge/Google_Maps-API-4285F4?style=for-the-badge&logo=googlemaps)
-![Railway](https://img.shields.io/badge/Deployed_on-Railway-0B0D0E?style=for-the-badge&logo=railway)
+<br/>
 
-**An AI-powered multi-agent platform that connects Pakistani citizens with local home service providers using voice, Urdu/English NLU, and real-time location.**
+[![Typing SVG](https://readme-typing-svg.demolab.com?font=Fira+Code&size=22&duration=3000&pause=800&color=00D9FF&center=true&vCenter=true&multiline=false&width=700&lines=🤖+AI-Powered+Home+Service+Discovery;🗣️+Supports+Urdu+%2B+English+%2B+Roman+Urdu;📍+Real-Time+Location+%26+Distance+Matching;🚀+Multi-Agent+LLM+Orchestration+Pipeline;📱+Flutter+App+%2B+FastAPI+Backend)](https://git.io/typing-svg)
 
-[🌐 Live API](https://service-sathi-production.up.railway.app/api) · [📖 API Docs](https://service-sathi-production.up.railway.app/docs) · [💚 Health Check](https://service-sathi-production.up.railway.app/api/health)
+<br/>
+
+![Python](https://img.shields.io/badge/Python-3.11-3776AB?style=for-the-badge&logo=python&logoColor=white)
+![FastAPI](https://img.shields.io/badge/FastAPI-0.115-009688?style=for-the-badge&logo=fastapi&logoColor=white)
+![Flutter](https://img.shields.io/badge/Flutter-3.x-02569B?style=for-the-badge&logo=flutter&logoColor=white)
+![PostgreSQL](https://img.shields.io/badge/PostgreSQL-Railway-336791?style=for-the-badge&logo=postgresql&logoColor=white)
+
+![Groq](https://img.shields.io/badge/Groq-LLaMA_3.1_8B-FF6B35?style=for-the-badge&logoColor=white)
+![Google Maps](https://img.shields.io/badge/Google_Maps-Geocoding_API-4285F4?style=for-the-badge&logo=googlemaps&logoColor=white)
+![Railway](https://img.shields.io/badge/Deployed_on-Railway-0B0D0E?style=for-the-badge&logo=railway&logoColor=white)
+![License](https://img.shields.io/badge/License-MIT-green?style=for-the-badge)
+
+<br/>
+
+[![Live API](https://img.shields.io/badge/🌐_Live_API-service--sathi.railway.app-00D9FF?style=for-the-badge)](https://service-sathi-production.up.railway.app/api)
+[![API Docs](https://img.shields.io/badge/📖_Swagger_Docs-/docs-FF6B35?style=for-the-badge)](https://service-sathi-production.up.railway.app/docs)
+[![Health](https://img.shields.io/badge/💚_Health_Check-/api/health-4CAF50?style=for-the-badge)](https://service-sathi-production.up.railway.app/api/health)
 
 </div>
 
@@ -22,119 +31,159 @@
 ## 📁 Repository Structure
 
 ```
-ServiceSathiAI/
-├── backend/          # FastAPI Python backend — AI agents, REST API, DB
-└── flutter_app/      # Flutter mobile app — Android/iOS frontend
+🗂️ service-sathi/
+│
+├── 📂 backend/               ← FastAPI Python Backend
+│   ├── 📂 app/               ← Core application modules
+│   │   ├── main.py           ← FastAPI entry point
+│   │   ├── models.py         ← SQLAlchemy DB models
+│   │   ├── schemas.py        ← Pydantic request/response schemas
+│   │   ├── database.py       ← DB connection
+│   │   └── agents/           ← AI agent pipeline
+│   ├── requirements.txt      ← Python dependencies
+│   ├── Procfile              ← Railway deployment config
+│   ├── seed_data.py          ← Seed DB with providers
+│   └── .env.template         ← Environment variable template
+│
+└── 📂 flutter_app/           ← Flutter Mobile App
+    ├── lib/
+    │   ├── main.dart          ← App entry point
+    │   ├── screens/           ← All UI screens
+    │   ├── services/          ← API service layer
+    │   ├── models/            ← Data models
+    │   ├── theme/             ← App theming
+    │   └── widgets/           ← Reusable components
+    └── pubspec.yaml           ← Flutter dependencies
 ```
 
 ---
 
 ## 🧠 What is ServiceSathi AI?
 
-ServiceSathi AI is an intelligent home service discovery platform built for Pakistani users. A user simply describes what they need — in **Urdu, English, or Roman Urdu** — by typing or speaking, and the AI pipeline does the rest:
+> ServiceSathi AI is an intelligent home service discovery platform built for Pakistani users. A user describes what they need — in **Urdu, English, or Roman Urdu** — by voice or text, and the AI pipeline handles everything automatically.
 
-1. 🧾 **Understands** intent (service type, location, timing, language)
-2. 📍 **Geocodes** the location using Google Maps API
-3. 🔍 **Discovers** nearby providers from a live PostgreSQL database
-4. 🏆 **Ranks** providers by rating and real GPS distance
-5. ✅ **Books** the best match and schedules automated follow-ups
-6. 📱 **Displays** results on a beautiful Flutter UI with Maps, Call, and Directions
+<div align="center">
+
+```
+🗣️ User speaks/types  →  🤖 AI understands  →  📍 Finds nearby provider  →  ✅ Books automatically
+```
+
+</div>
 
 ---
 
-## 🏗️ Multi-Agent Pipeline Architecture
+## 🏗️ Multi-Agent AI Pipeline
 
 ```
-User Request (Voice / Text — Urdu / English / Roman Urdu)
-        │
-        ▼
-┌───────────────────┐
-│   IntentAgent     │  ← LLaMA 3.1 via Groq API
-│  (NLU Parsing)    │    Extracts: service, location, time, language
-└────────┬──────────┘
-         │
-         ▼
-┌───────────────────┐
-│  DiscoveryAgent   │  ← PostgreSQL (Railway) + Google Maps Geocoding
-│ (Provider Search) │    Real distance via Haversine formula
-└────────┬──────────┘
-         │
-         ▼
-┌───────────────────┐
-│  DecisionAgent    │  ← Custom ranking algorithm
-│  (AI Matching)    │    Ranks by: rating ↓, distance ↑
-└────────┬──────────┘
-         │
-         ▼
-┌───────────────────┐
-│  ExecutionAgent   │  ← DB write + follow-up pipeline generation
-│ (Book & Schedule) │    Confirms booking, generates 4-step follow-up plan
-└───────────────────┘
-        │
-        ▼
-  OrchestratorResponse (JSON) → Flutter App
+┌─────────────────────────────────────────────────────────────┐
+│           User Request (Voice / Text)                        │
+│        Urdu · English · Roman Urdu                           │
+└─────────────────────┬───────────────────────────────────────┘
+                      │
+                      ▼
+        ┌─────────────────────────┐
+        │      IntentAgent        │  🧠 LLaMA 3.1 via Groq API
+        │      (NLU Parsing)      │  Extracts: service · location · time · language
+        └────────────┬────────────┘
+                     │
+                     ▼
+        ┌─────────────────────────┐
+        │     DiscoveryAgent      │  🗄️ PostgreSQL (Railway)
+        │    (Provider Search)    │  📍 Google Maps Geocoding
+        └────────────┬────────────┘  📏 Haversine Distance Formula
+                     │
+                     ▼
+        ┌─────────────────────────┐
+        │     DecisionAgent       │  🏆 Custom Ranking Algorithm
+        │      (AI Matching)      │  Sorts by: Rating ↓  ·  Distance ↑
+        └────────────┬────────────┘
+                     │
+                     ▼
+        ┌─────────────────────────┐
+        │    ExecutionAgent       │  ✅ Confirms Booking in DB
+        │   (Book & Schedule)     │  📋 Generates 4-step follow-up plan
+        └────────────┬────────────┘
+                     │
+                     ▼
+        ┌─────────────────────────┐
+        │   Flutter App (UI)      │  📱 Shows result on map
+        │    Final Response       │  📞 One-tap call · 🧭 Directions
+        └─────────────────────────┘
 ```
 
 ---
 
 ## 🚀 Tech Stack
 
-| Layer | Technology |
-|-------|-----------|
-| **Mobile App** | Flutter 3.x (Dart) |
-| **Backend Framework** | FastAPI (Python 3.11) |
-| **AI / LLM** | Groq API — LLaMA 3.1 8B Instant |
-| **Database** | PostgreSQL on Railway |
-| **ORM** | SQLAlchemy |
-| **Geocoding** | Google Maps Geocoding API |
-| **Distance Calc** | Haversine Formula |
-| **Voice Input** | `speech_to_text` Flutter plugin |
-| **Maps UI** | `google_maps_flutter` |
-| **Deployment** | Railway (auto-deploy from GitHub) |
-| **Validation** | Pydantic v2 |
+| Layer | Technology | Purpose |
+|-------|-----------|---------|
+| 📱 **Mobile App** | Flutter 3.x (Dart) | Android / iOS frontend |
+| ⚡ **Backend** | FastAPI (Python 3.11) | REST API server |
+| 🤖 **AI / LLM** | Groq — LLaMA 3.1 8B | Natural language understanding |
+| 🗄️ **Database** | PostgreSQL on Railway | Providers & bookings storage |
+| 🗺️ **Geocoding** | Google Maps API | Real location coordinates |
+| 📏 **Distance** | Haversine Formula | GPS-accurate km calculation |
+| 🎤 **Voice Input** | speech_to_text plugin | Urdu & English voice capture |
+| 🗺️ **Maps UI** | google_maps_flutter | Dark-theme provider map |
+| ☁️ **Deployment** | Railway | Auto-deploy from GitHub |
+| ✅ **Validation** | Pydantic v2 | Request/response validation |
 
 ---
 
-## ⚙️ Backend Setup — `backend/`
+## ⚙️ Complete Setup Guide
 
-### Prerequisites
-- Python 3.11+
-- PostgreSQL database (or use the Railway hosted DB URL)
-- Groq API Key → [console.groq.com](https://console.groq.com)
-- Google Maps API Key → [console.cloud.google.com](https://console.cloud.google.com)
+> Follow these steps **in order**. Both backend and frontend are covered below.
 
-### Local Installation
+---
+
+### 🔑 Step 1 — Get Your API Keys First
+
+You need **3 API keys** before anything will work:
+
+| Key | Where to Get | Cost |
+|-----|-------------|------|
+| `GROQ_API_KEY` | [console.groq.com](https://console.groq.com) → Create API Key | 🆓 Free |
+| `DATABASE_URL` | [railway.app](https://railway.app) → New Project → PostgreSQL | 🆓 Free tier |
+| `GOOGLE_MAPS_API_KEY` | [console.cloud.google.com](https://console.cloud.google.com) → APIs & Services | 💳 Requires billing (free $200/month credit) |
+
+> **Google Maps APIs to enable:** Maps SDK for Android · Geocoding API · Places API
+
+---
+
+### 📥 Step 2 — Clone the Repository
 
 ```bash
-# 1. Clone the repo
 git clone https://github.com/Nav33dCodes/service-sathi.git
-cd service-sathi/backend
-
-# 2. Create and activate virtual environment
-python -m venv venv
-venv\Scripts\activate          # Windows
-# source venv/bin/activate     # macOS/Linux
-
-# 3. Install dependencies
-pip install -r requirements.txt
-
-# 4. Create .env file
-cp .env.template .env
-# Fill in your keys (see Environment Variables section below)
-
-# 5. Seed the database with sample providers
-python seed_data.py
-
-# 6. Start the server
-uvicorn app.main:app --reload
+cd service-sathi
 ```
 
-- **Server:** `http://localhost:8000`
-- **Interactive Docs (Swagger):** `http://localhost:8000/docs`
+---
 
-### Environment Variables
+### 🐍 Step 3 — Backend Setup
 
-Create a `.env` file inside `backend/`:
+```bash
+# Navigate to backend
+cd backend
+
+# Create virtual environment
+python -m venv venv
+
+# Activate it
+venv\Scripts\activate          # ← Windows
+# source venv/bin/activate     # ← macOS / Linux
+
+# Install all dependencies
+pip install -r requirements.txt
+```
+
+**Create your `.env` file:**
+
+```bash
+# Copy the template
+cp .env.template .env
+```
+
+Now open `.env` and fill in your keys:
 
 ```env
 GROQ_API_KEY=your_groq_api_key_here
@@ -142,21 +191,96 @@ DATABASE_URL=postgresql://user:password@host:port/dbname
 GOOGLE_MAPS_API_KEY=your_google_maps_api_key_here
 ```
 
-> **Required Google Cloud APIs:** Maps SDK for Android · Geocoding API · Places API
+**Seed the database with sample providers:**
+
+```bash
+python seed_data.py
+```
+
+**Start the backend server:**
+
+```bash
+uvicorn app.main:app --reload
+```
+
+| URL | Purpose |
+|-----|---------|
+| `http://localhost:8000` | Base API |
+| `http://localhost:8000/docs` | Swagger UI (test all endpoints) |
+| `http://localhost:8000/api/health` | Health check |
+
+✅ **Backend is running!**
+
+---
+
+### 📱 Step 4 — Flutter App Setup
+
+> Make sure you have Flutter SDK installed. [Get Flutter →](https://flutter.dev/docs/get-started/install)
+
+```bash
+# From the repo root, go to flutter app
+cd flutter_app
+
+# Install Flutter packages
+flutter pub get
+```
+
+**Add your Google Maps API Key:**
+
+Open `flutter_app/android/app/src/main/AndroidManifest.xml` and find this section:
+
+```xml
+<application ...>
+    <!-- Add this line inside <application> tag -->
+    <meta-data
+        android:name="com.google.android.geo.API_KEY"
+        android:value="YOUR_GOOGLE_MAPS_API_KEY_HERE"/>
+```
+
+**Point the app to your backend:**
+
+Open `flutter_app/lib/services/api_service.dart` and update:
+
+```dart
+// For local testing:
+static const String baseUrl = 'http://10.0.2.2:8000/api';
+
+// For production (Railway):
+static const String baseUrl = 'https://service-sathi-production.up.railway.app/api';
+```
+
+**Run the app:**
+
+```bash
+# Connect Android device or start emulator, then:
+flutter run
+```
+
+✅ **Flutter app is running!**
+
+---
+
+### ☁️ Step 5 — Deploy Backend to Railway
+
+1. Push your code to GitHub (already done if you forked)
+2. Go to [railway.app](https://railway.app) → **New Project** → **Deploy from GitHub**
+3. Select your repo → Railway auto-detects the `Procfile`
+4. Go to **Settings** → set **Root Directory** = `backend`
+5. Go to **Variables** → add your 3 environment variables
+6. Railway auto-deploys on every push to `main` 🚀
+
+**Live URL format:** `https://your-app-name.up.railway.app`
 
 ---
 
 ## 📡 API Reference
 
-### `POST /api/request` — Main AI Orchestration
+### `POST /api/request` — Main AI Endpoint
 
-Accepts natural language input, runs the full 4-agent pipeline.
-
-**Request:**
-```json
-{
-  "text": "Mujhe G-13 mein AC technician chahiye kal subah"
-}
+```bash
+curl -X POST https://service-sathi-production.up.railway.app/api/request \
+  -H "Content-Type: application/json" \
+  -d '{"text": "Mujhe G-13 mein AC technician chahiye kal subah"}'
 ```
 
 **Response:**
@@ -169,40 +293,26 @@ Accepts natural language input, runs the full 4-agent pipeline.
     "language": "Roman Urdu"
   },
   "recommended_provider": {
-    "id": 1,
     "name": "Ali AC Services",
-    "service": "AC Technician",
-    "location": "G-13",
-    "lat": 33.6491,
-    "lng": 72.9691,
     "rating": 4.8,
     "distance": 1.2,
-    "experience": 5,
     "phone": "+923001234567",
     "price_range": "$$"
   },
-  "reasoning": "Selected Ali AC Services — Highest rated (4.8⭐) and only 1.2km away",
   "booking": {
     "booking_id": 42,
-    "provider_name": "Ali AC Services",
-    "scheduled_time": "Tomorrow morning",
     "status": "Confirmed"
-  },
-  "follow_up_schedule": ["...", "..."],
-  "agent_trace": [...]
+  }
 }
 ```
 
-### `GET /api/providers` — List All Providers
-Optionally pass `?location=G-13` for real-time distance calculation.
+### Other Endpoints
 
-### `GET /api/bookings` — List All Bookings
-Returns all confirmed bookings from the database.
-
-### `GET /api/health` — Health Check
-```json
-{ "status": "ok", "service": "ServiceSathi AI Backend", "version": "2.0" }
-```
+| Method | Endpoint | Description |
+|--------|---------|-------------|
+| `GET` | `/api/health` | Server health check |
+| `GET` | `/api/providers` | All providers (add `?location=G-13` for distances) |
+| `GET` | `/api/bookings` | All confirmed bookings |
 
 ---
 
@@ -215,121 +325,61 @@ Returns all confirmed bookings from the database.
 | `id` | Integer | Primary key |
 | `name` | String | Provider full name |
 | `service` | String | Service category |
-| `location` | String | Area/neighbourhood |
+| `location` | String | Area / neighbourhood |
 | `lat` | Float | GPS latitude |
 | `lng` | Float | GPS longitude |
-| `rating` | Float | Rating out of 5.0 |
-| `available` | Boolean | Currently available |
+| `rating` | Float | Rating out of 5.0 ⭐ |
+| `available` | Boolean | Currently available? |
 | `experience` | Integer | Years of experience |
-| `phone` | String | Contact number (WhatsApp) |
-| `price_range` | String | `$`, `$$`, or `$$$` |
+| `phone` | String | WhatsApp contact number |
+| `price_range` | String | `$` cheap · `$$` mid · `$$$` premium |
 
 ### `bookings` table
 
 | Column | Type | Description |
 |--------|------|-------------|
-| `id` | Integer | Primary key / Booking ID |
+| `id` | Integer | Booking ID |
 | `user_request` | String | Original user query |
-| `provider_id` | FK | Links to providers |
-| `scheduled_time` | String | When provider will arrive |
+| `provider_id` | FK → providers | Matched provider |
+| `scheduled_time` | String | Arrival time |
 | `status` | String | Confirmed / Cancelled |
 
 ---
 
-## 📱 Flutter App Setup — `flutter_app/`
+## ❓ Troubleshooting
 
-### Prerequisites
-- Flutter SDK 3.x → [flutter.dev/get-started](https://flutter.dev/get-started/install)
-- Android Studio or VS Code with Flutter plugin
-- Android device or emulator (API 21+)
-- Google Maps API Key (same key as backend)
-
-### Installation
-
-```bash
-cd service-sathi/flutter_app
-
-# Install dependencies
-flutter pub get
-
-# Run on connected device or emulator
-flutter run
-```
-
-### Flutter Dependencies
-
-| Package | Purpose |
+| Problem | Solution |
 |---------|---------|
-| `http` | REST API calls to FastAPI backend |
-| `google_fonts` | Premium typography (Inter / Outfit) |
-| `glassmorphism` | Glass-card UI effects |
-| `lucide_icons` | Modern icon set |
-| `speech_to_text` | Voice-to-text (Urdu & English) |
-| `google_maps_flutter` | Provider map with dark theme |
-| `url_launcher` | One-tap call & directions |
-
-### Add Your Google Maps API Key
-
-In `flutter_app/android/app/src/main/AndroidManifest.xml`, add:
-
-```xml
-<meta-data
-    android:name="com.google.android.geo.API_KEY"
-    android:value="YOUR_GOOGLE_MAPS_API_KEY"/>
-```
-
-### App Features
-
-| Feature | Description |
-|---------|-------------|
-| 🗣️ **Voice Input** | Speak your request in Urdu, English, or Roman Urdu |
-| 🤖 **AI Chat** | Natural language service request processing |
-| 📍 **Live Map** | Google Maps with dark theme showing provider location |
-| 📞 **One-tap Call** | Instantly call the matched provider |
-| 🧭 **Directions** | Turn-by-turn navigation to provider |
-| 📋 **Bookings** | View all confirmed bookings |
-| 🔍 **Agent Logs** | See the AI agent pipeline trace in real-time |
+| `GROQ_API_KEY invalid` | Double-check key at console.groq.com |
+| `Database connection failed` | Verify `DATABASE_URL` format and Railway DB is running |
+| `Maps not showing` | Enable Geocoding API + Maps SDK in Google Cloud Console |
+| `flutter pub get fails` | Run `flutter doctor` and fix any missing SDK issues |
+| `App can't reach backend` | Check `baseUrl` in `api_service.dart` matches your server |
+| `Railway red ❌ on commit` | Set Root Directory = `backend` in Railway service settings |
 
 ---
 
-## 🌍 Deployment
+## 👥 Team
 
-### Backend — Railway
+<div align="center">
 
-The backend auto-deploys to Railway on every push to `main`.
+| 👑 Leader | 💻 Developer |
+|-----------|-------------|
+| **Sanan Malik** | **Naveed Ahmed** |
+| Project Lead & Vision | Backend · AI · Flutter |
 
-**Procfile** (`backend/Procfile`):
-```
-web: uvicorn app.main:app --host 0.0.0.0 --port $PORT
-```
+*Built with ❤️ for a Hackathon Demo 🏆*
 
-**Live URL:** `https://service-sathi-production.up.railway.app`
+*ServiceSathi AI — Ghar ki zaroorat, ek awaaz mein.*
 
-To deploy your own instance:
-1. Fork this repo
-2. Create a new Railway project → connect your fork
-3. Set environment variables in Railway dashboard
-4. Railway auto-detects the Procfile and deploys
-
-### Flutter App — Android Release
-
-```bash
-cd flutter_app
-flutter build apk --release
-# APK → flutter_app/build/outputs/flutter-apk/app-release.apk
-```
-
----
-
-## 👨‍💻 Built By
-
-**Naveed** — Built for a Hackathon Demo 🏆
-
-> *ServiceSathi AI — Ghar ki zaroorat, ek awaaz mein.*  
-> *"Your home service need, in one voice."*
+</div>
 
 ---
 
 <div align="center">
-  <sub>Powered by Groq LLaMA 3.1 · Google Maps API · Railway · FastAPI · Flutter</sub>
+
+<img src="https://capsule-render.vercel.app/api?type=waving&color=0:1e3799,50:0a3d62,100:0d1117&height=120&section=footer&animation=fadeIn" width="100%"/>
+
+<sub>⚡ Powered by Groq LLaMA 3.1 · Google Maps API · Railway · FastAPI · Flutter</sub>
+
 </div>
