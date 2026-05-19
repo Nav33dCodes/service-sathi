@@ -5,28 +5,44 @@ import 'package:http/http.dart' as http;
 import '../models/api_models.dart';
 
 class ApiService {
-  // 🚀 PASTE YOUR RAILWAY DEPLOYMENT LINK HERE:
-  // Example: 'https://service-sathi-production.up.railway.app/api'
-  static const String railwayUrl =
-      'https://service-sathi-production.up.railway.app/api';
+  // ─────────────────────────────────────────────
+  // 🔧 CONFIGURATION — Edit these two lines only
+  // ─────────────────────────────────────────────
 
-  // Set this to true when you want to use the Railway URL instead of local
-  static const bool useRailway = true;
+  /// Set to your deployed backend URL (Railway / Render / Heroku / VPS / any)
+  /// Leave as empty string '' to use local server instead
+  static const String deployedUrl = 'https://service-sathi-production.up.railway.app/api';
+
+  /// true  → use deployedUrl (production mode)
+  /// false → use localhost (local development mode)
+  static const bool useDeployed = true;
+
+  // ─────────────────────────────────────────────
+  // ⚙️  AUTO URL RESOLUTION — No need to edit below
+  // ─────────────────────────────────────────────
 
   String get baseUrl {
-    if (useRailway && railwayUrl != 'PASTE_RAILWAY_URL_HERE/api') {
-      return railwayUrl;
+    // Use deployed URL if configured and enabled
+    if (useDeployed && deployedUrl.isNotEmpty) {
+      return deployedUrl;
     }
 
+    // Local development fallbacks
     if (kIsWeb) {
+      // Browser
       return 'http://127.0.0.1:8000/api';
     } else if (Platform.isAndroid) {
-      // Your computer's local Wi-Fi IP address
-      return 'http://192.168.10.14:8000/api';
+      // Android emulator: 10.0.2.2 maps to your PC's localhost
+      return 'http://10.0.2.2:8000/api';
     } else {
+      // iOS simulator / desktop
       return 'http://127.0.0.1:8000/api';
     }
   }
+
+  // ─────────────────────────────────────────────
+  // 📡 API METHODS
+  // ─────────────────────────────────────────────
 
   Future<OrchestratorResponse> sendRequest(String text) async {
     final response = await http.post(
@@ -39,7 +55,7 @@ class ApiService {
       return OrchestratorResponse.fromJson(jsonDecode(response.body));
     } else {
       throw Exception(
-        'Failed to communicate with Antigravity Orchestrator: ${response.body}',
+        'ServiceSathi API error (${response.statusCode}): ${response.body}',
       );
     }
   }
@@ -54,7 +70,9 @@ class ApiService {
       final List<dynamic> data = jsonDecode(response.body);
       return data.map((json) => BookingConfirmation.fromJson(json)).toList();
     } else {
-      throw Exception('Failed to fetch bookings: ${response.body}');
+      throw Exception(
+        'ServiceSathi API error (${response.statusCode}): ${response.body}',
+      );
     }
   }
 
@@ -68,7 +86,9 @@ class ApiService {
       final List<dynamic> data = jsonDecode(response.body);
       return data.map((json) => ProviderModel.fromJson(json)).toList();
     } else {
-      throw Exception('Failed to fetch providers: ${response.body}');
+      throw Exception(
+        'ServiceSathi API error (${response.statusCode}): ${response.body}',
+      );
     }
   }
 }
