@@ -20,9 +20,9 @@
 
 <br/>
 
-[![Live API](https://img.shields.io/badge/🌐_Live_API-service--sathi.railway.app-00D9FF?style=for-the-badge)](https://service-sathi-production.up.railway.app/api)
+[![Live API](https://img.shields.io/badge/🌐_Live_API-/api/health-00D9FF?style=for-the-badge)](https://service-sathi-production.up.railway.app/api/health)
 [![API Docs](https://img.shields.io/badge/📖_Swagger_Docs-/docs-FF6B35?style=for-the-badge)](https://service-sathi-production.up.railway.app/docs)
-[![Health](https://img.shields.io/badge/💚_Health_Check-/api/health-4CAF50?style=for-the-badge)](https://service-sathi-production.up.railway.app/api/health)
+[![Health](https://img.shields.io/badge/💚_Health_Check-status_ok-4CAF50?style=for-the-badge)](https://service-sathi-production.up.railway.app/api/health)
 
 </div>
 
