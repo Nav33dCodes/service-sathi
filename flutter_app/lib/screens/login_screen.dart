@@ -64,6 +64,48 @@ class _LoginScreenState extends State<LoginScreen> {
     }
   }
 
+  Future<void> _handleGuestLogin() async {
+    setState(() {
+      _isLoading = true;
+      _errorMessage = null;
+    });
+
+    try {
+      final guestId = DateTime.now().millisecondsSinceEpoch;
+      final guestEmail = 'guest_$guestId@servicesathi.com';
+      final guestName = 'Guest $guestId';
+      const guestPassword = 'guestPassword123';
+
+      // Silent registration
+      await _apiService.register(
+        name: guestName,
+        email: guestEmail,
+        password: guestPassword,
+      );
+
+      // Silent login
+      await _apiService.login(guestEmail, guestPassword);
+
+      if (!mounted) return;
+
+      // Navigate to dashboard
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (_) => const MainLayout()),
+      );
+    } catch (e) {
+      setState(() {
+        _errorMessage = "Guest login failed: ${e.toString().replaceAll('Exception: ', '')}";
+      });
+    } finally {
+      if (mounted) {
+        setState(() {
+          _isLoading = false;
+        });
+      }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -284,6 +326,38 @@ class _LoginScreenState extends State<LoginScreen> {
                                       const Icon(LucideIcons.arrowRight, color: Colors.black, size: 16),
                                     ],
                                   ),
+                          ),
+                        ),
+                        const SizedBox(height: 12),
+                        // Continue as Guest Button
+                        GestureDetector(
+                          onTap: _isLoading ? null : _handleGuestLogin,
+                          child: Container(
+                            alignment: Alignment.center,
+                            padding: const EdgeInsets.symmetric(vertical: 16),
+                            decoration: BoxDecoration(
+                              color: Colors.transparent,
+                              borderRadius: BorderRadius.circular(12),
+                              border: Border.all(
+                                color: AppTheme.emeraldGreen.withValues(alpha: 0.4),
+                                width: 1.5,
+                              ),
+                            ),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(
+                                  "Continue as Guest",
+                                  style: GoogleFonts.inter(
+                                    color: AppTheme.emeraldGreen,
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                                const SizedBox(width: 8),
+                                const Icon(LucideIcons.userCheck, color: AppTheme.emeraldGreen, size: 16),
+                              ],
+                            ),
                           ),
                         ),
                       ],
