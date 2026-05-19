@@ -29,22 +29,15 @@ class ServiceSathiLogo extends StatelessWidget {
           height: size,
           decoration: BoxDecoration(
             shape: BoxShape.circle,
-            gradient: LinearGradient(
-              colors: [
-                primaryBlue,
-                primaryBlue.withBlue(150),
-              ],
-              begin: Alignment.topLeft,
-              end: Alignment.bottomRight,
-            ),
+            color: Colors.white.withValues(alpha: 0.05),
             boxShadow: [
               BoxShadow(
-                color: primaryBlue.withOpacity(0.3),
+                color: primaryBlue.withValues(alpha: 0.2),
                 blurRadius: size * 0.2,
                 offset: Offset(0, size * 0.1),
               ),
               BoxShadow(
-                color: emeraldGreen.withOpacity(0.2),
+                color: emeraldGreen.withValues(alpha: 0.15),
                 blurRadius: size * 0.1,
                 offset: Offset(0, -size * 0.05),
               ),
@@ -53,30 +46,25 @@ class ServiceSathiLogo extends StatelessWidget {
           child: Stack(
             alignment: Alignment.center,
             children: [
-              // outer glowing border
+              // Outer glowing border
               Container(
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
                   border: Border.all(
-                    color: emeraldGreen.withOpacity(0.4),
+                    color: emeraldGreen.withValues(alpha: 0.3),
                     width: size * 0.03,
                   ),
                 ),
               ),
-              // Inside Emblem: Gear + House + AI sparkles shape
-              Icon(
-                Icons.home_repair_service_rounded,
-                size: size * 0.5,
-                color: Colors.white,
-              ),
-              // Sparkle Icon (representing AI Orchestrator)
-              Positioned(
-                top: size * 0.2,
-                right: size * 0.2,
-                child: Icon(
-                  Icons.auto_awesome_rounded,
-                  size: size * 0.22,
-                  color: emeraldGreen,
+              // Inside Emblem: The new app icon image
+              Padding(
+                padding: EdgeInsets.all(size * 0.08),
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(size * 0.5),
+                  child: Image.asset(
+                    'assets/icon/app_icon.png',
+                    fit: BoxFit.contain,
+                  ),
                 ),
               ),
             ],

@@ -156,8 +156,25 @@ class _HomeChatScreenState extends State<HomeChatScreen> with TickerProviderStat
         elevation: 0,
         automaticallyImplyLeading: false,
         title: Row(children: [
-          Container(width: 40, height: 40, decoration: BoxDecoration(gradient: const LinearGradient(colors: [AppTheme.emeraldGreen, Color(0xFF00BFA5)]), borderRadius: BorderRadius.circular(12)),
-            child: const Icon(LucideIcons.bot, color: Colors.white, size: 20)),
+          Container(
+            width: 40,
+            height: 40,
+            decoration: BoxDecoration(
+              color: Colors.white.withValues(alpha: 0.1),
+              borderRadius: BorderRadius.circular(12),
+              border: Border.all(color: AppTheme.emeraldGreen.withValues(alpha: 0.2)),
+            ),
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(12),
+              child: Padding(
+                padding: const EdgeInsets.all(4.0),
+                child: Image.asset(
+                  'assets/icon/app_icon.png',
+                  fit: BoxFit.contain,
+                ),
+              ),
+            ),
+          ),
           const SizedBox(width: 12),
           Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
             Text('ServiceSathi AI', style: GoogleFonts.outfit(color: AppTheme.textLight, fontWeight: FontWeight.bold, fontSize: 16)),
