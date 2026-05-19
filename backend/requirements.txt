@@ -9,4 +9,4 @@ sqlalchemy
 psycopg2-binary
 googlemaps
 pyjwt
-passlib[bcrypt]
+bcrypt
