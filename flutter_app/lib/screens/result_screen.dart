@@ -35,6 +35,23 @@ class _ResultScreenState extends State<ResultScreen> {
     }
   }
 
+  void _openWhatsApp(String phone, String text) async {
+    String cleanPhone = phone.replaceAll(RegExp(r'\D'), '');
+    final uri = Uri.parse(
+      'https://wa.me/$cleanPhone?text=${Uri.encodeComponent(text)}',
+    );
+    if (await canLaunchUrl(uri)) {
+      await launchUrl(uri, mode: LaunchMode.externalApplication);
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Could not open WhatsApp'),
+          backgroundColor: Colors.redAccent,
+        ),
+      );
+    }
+  }
+
   Widget _buildSectionTitle(String number, String title) {
     return Row(
       children: [
@@ -527,7 +544,73 @@ class _ResultScreenState extends State<ResultScreen> {
               ],
             ),
           ),
-          const SizedBox(height: 20),
+          if (booking.whatsappMessage != null) ...[
+            const SizedBox(height: 20),
+            Text(
+              'AI Agent Generated Message',
+              style: GoogleFonts.inter(
+                color: AppTheme.textMuted,
+                fontWeight: FontWeight.bold,
+                fontSize: 12,
+              ),
+            ),
+            const SizedBox(height: 8),
+            Container(
+              width: double.infinity,
+              padding: const EdgeInsets.all(14),
+              decoration: BoxDecoration(
+                color: Colors.white.withOpacity(0.04),
+                borderRadius: BorderRadius.circular(12),
+                border: Border.all(color: Colors.white.withOpacity(0.05)),
+              ),
+              child: Text(
+                booking.whatsappMessage!,
+                style: GoogleFonts.inter(
+                  color: AppTheme.textLight,
+                  fontSize: 13,
+                  fontStyle: FontStyle.italic,
+                  height: 1.4,
+                ),
+              ),
+            ),
+          ],
+          if (widget.response.recommendedProvider?.phone != null &&
+              booking.whatsappMessage != null) ...[
+            const SizedBox(height: 14),
+            SizedBox(
+              width: double.infinity,
+              height: 48,
+              child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: const Color(0xFF25D366),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  elevation: 2,
+                ),
+                onPressed: () => _openWhatsApp(
+                  widget.response.recommendedProvider!.phone!,
+                  booking.whatsappMessage!,
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Icon(LucideIcons.messageSquare, color: Colors.white, size: 18),
+                    const SizedBox(width: 10),
+                    Text(
+                      'Message Provider on WhatsApp',
+                      style: GoogleFonts.inter(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 14,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ],
+          const SizedBox(height: 24),
           Text(
             'Follow-Up Pipeline Scheduled',
             style: GoogleFonts.inter(

@@ -130,7 +130,42 @@ class DecisionAgent:
 
 class ExecutionAgent:
     """Agent responsible for simulating real-world actions (bookings, follow-ups)."""
-    def execute_booking(self, db: Session, user_text: str, provider: ProviderModel, scheduled_time: str) -> BookingConfirmation:
+    def generate_whatsapp_message(self, provider_name: str, service_type: str, location: str, scheduled_time: str, booking_id: int, language: str) -> str:
+        prompt = f"""
+        You are ServiceSathi AI. Generate a professional and polite notification message in the user's language: "{language}" (can be English, Roman Urdu, or Urdu script) to be sent on WhatsApp to the service provider.
+        
+        Details:
+        - Provider Name: {provider_name}
+        - Service requested: {service_type}
+        - Location: {location}
+        - Scheduled Time: {scheduled_time}
+        - Booking Reference ID: #{booking_id}
+        
+        Generate ONLY the plain text of the WhatsApp message. Do not include any intro, outro, HTML, markdown blocks, quotes, or JSON formatting. Keep it short and readable for mobile.
+        """
+        try:
+            json_prompt = f"""
+            {prompt}
+            Return ONLY a JSON object with a single key "message".
+            JSON Format:
+            {{
+              "message": "..."
+            }}
+            """
+            response_text = get_groq_completion(json_prompt)
+            data = json.loads(response_text)
+            return data.get("message", "")
+        except Exception as e:
+            print(f"[WhatsApp Agent ERROR] {e}")
+            return (
+                f"Assalam-o-Alaikum {provider_name}, ServiceSathi booking confirmed!\n"
+                f"Service: {service_type}\n"
+                f"Location: {location}\n"
+                f"Time: {scheduled_time}\n"
+                f"Ref ID: #{booking_id}"
+            )
+
+    def execute_booking(self, db: Session, user_text: str, provider: ProviderModel, scheduled_time: str, language: str) -> BookingConfirmation:
         new_booking = BookingModel(
             user_request=user_text,
             provider_id=provider.id,
@@ -141,11 +176,21 @@ class ExecutionAgent:
         db.commit()
         db.refresh(new_booking)
         
+        whatsapp_msg = self.generate_whatsapp_message(
+            provider_name=provider.name,
+            service_type=provider.service,
+            location=provider.location,
+            scheduled_time=scheduled_time,
+            booking_id=new_booking.id,
+            language=language
+        )
+        
         return BookingConfirmation(
             booking_id=new_booking.id,
             provider_name=provider.name,
             scheduled_time=scheduled_time,
-            status="Confirmed"
+            status="Confirmed",
+            whatsapp_message=whatsapp_msg
         )
 
     def generate_follow_up(self, scheduled_time: str) -> list[str]:
@@ -211,7 +256,7 @@ def run_orchestrator(db: Session, user_text: str) -> OrchestratorResponse:
         best_provider_response = ProviderResponse(**provider_data)
         
         trace.append({"step": "Booking Execution", "agent": "ExecutionAgent", "action": "Book Provider", "status": "Running"})
-        booking = execution_agent.execute_booking(db, user_text, best_provider, intent.time)
+        booking = execution_agent.execute_booking(db, user_text, best_provider, intent.time, intent.language)
         trace[-1]["result"] = f"Booking #{booking.booking_id} confirmed for {booking.provider_name} at {booking.scheduled_time}"
         trace[-1]["status"] = "Completed"
         

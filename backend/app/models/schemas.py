@@ -31,6 +31,7 @@ class BookingConfirmation(BaseModel):
     provider_name: str
     scheduled_time: str
     status: str
+    whatsapp_message: Optional[str] = None
 
     model_config = ConfigDict(from_attributes=True)
 

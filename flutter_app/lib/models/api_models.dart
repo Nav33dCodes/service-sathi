@@ -73,12 +73,14 @@ class BookingConfirmation {
   final String providerName;
   final String scheduledTime;
   final String status;
+  final String? whatsappMessage;
 
   BookingConfirmation({
     required this.bookingId,
     required this.providerName,
     required this.scheduledTime,
     required this.status,
+    this.whatsappMessage,
   });
 
   factory BookingConfirmation.fromJson(Map<String, dynamic> json) {
@@ -87,6 +89,7 @@ class BookingConfirmation {
       providerName: json['provider_name']?.toString() ?? 'Unknown',
       scheduledTime: json['scheduled_time']?.toString() ?? 'Not Scheduled',
       status: json['status']?.toString() ?? 'Confirmed',
+      whatsappMessage: json['whatsapp_message']?.toString(),
     );
   }
 }
