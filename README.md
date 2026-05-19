@@ -237,17 +237,20 @@ Open `flutter_app/android/app/src/main/AndroidManifest.xml` and find this sectio
         android:value="YOUR_GOOGLE_MAPS_API_KEY_HERE"/>
 ```
 
-**Point the app to your backend:**
+**Point the app to your deployed backend:**
 
-Open `flutter_app/lib/services/api_service.dart` and update:
+Open `flutter_app/lib/services/api_service.dart` and set your backend URL:
 
 ```dart
-// For local testing:
-static const String baseUrl = 'http://10.0.2.2:8000/api';
+// 👇 Paste your deployed backend URL here (Railway / Render / Heroku / VPS / any platform)
+static const String railwayUrl = 'https://YOUR-BACKEND-URL.com/api';
 
-// For production (Railway):
-static const String baseUrl = 'https://service-sathi-production.up.railway.app/api';
+// Set to true to use the deployed URL, false to use local server
+static const bool useRailway = true;
 ```
+
+> **Local testing on Android emulator?** The app auto-uses `http://10.0.2.2:8000/api` when `useRailway = false` (this maps to your PC's localhost).
+> **Physical device on same Wi-Fi?** Set `useRailway = false` and update the local IP in the file to your PC's local network IP (e.g. `192.168.x.x:8000`).
 
 **Run the app:**
 
@@ -260,16 +263,31 @@ flutter run
 
 ---
 
-### ☁️ Step 5 — Deploy Backend to Railway
+### ☁️ Step 5 — Deploy Backend (Any Platform)
 
-1. Push your code to GitHub (already done if you forked)
-2. Go to [railway.app](https://railway.app) → **New Project** → **Deploy from GitHub**
-3. Select your repo → Railway auto-detects the `Procfile`
-4. Go to **Settings** → set **Root Directory** = `backend`
-5. Go to **Variables** → add your 3 environment variables
-6. Railway auto-deploys on every push to `main` 🚀
+The backend works on **any Python-compatible hosting platform**. Choose what works for you:
 
-**Live URL format:** `https://your-app-name.up.railway.app`
+**Option A — Railway (Recommended, easiest)**
+1. Go to [railway.app](https://railway.app) → **New Project** → **Deploy from GitHub**
+2. Select your repo
+3. Go to **Settings** → set **Root Directory** = `backend`
+4. Go to **Variables** → add your 3 environment variables
+5. Railway auto-deploys on every push to `main` 🚀
+
+**Option B — Render**
+1. Go to [render.com](https://render.com) → **New Web Service** → Connect GitHub repo
+2. Set **Root Directory** = `backend`, **Build Command** = `pip install -r requirements.txt`
+3. Set **Start Command** = `uvicorn app.main:app --host 0.0.0.0 --port $PORT`
+4. Add environment variables → Deploy
+
+**Option C — Any VPS (AWS / DigitalOcean / etc.)**
+```bash
+cd backend
+pip install -r requirements.txt
+uvicorn app.main:app --host 0.0.0.0 --port 8000
+```
+
+> After deploying, copy your live URL and paste it into `api_service.dart` as shown in Step 4.
 
 ---
 
@@ -278,7 +296,13 @@ flutter run
 ### `POST /api/request` — Main AI Endpoint
 
 ```bash
-curl -X POST https://service-sathi-production.up.railway.app/api/request \
+# Replace YOUR-BACKEND-URL with your deployed server URL
+curl -X POST https://YOUR-BACKEND-URL.com/api/request \
+  -H "Content-Type: application/json" \
+  -d '{"text": "Mujhe G-13 mein AC technician chahiye kal subah"}'
+
+# Local testing:
+curl -X POST http://localhost:8000/api/request \
   -H "Content-Type: application/json" \
   -d '{"text": "Mujhe G-13 mein AC technician chahiye kal subah"}'
 ```
