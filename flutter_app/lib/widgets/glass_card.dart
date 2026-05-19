@@ -1,34 +1,55 @@
+import 'dart:ui';
 import 'package:flutter/material.dart';
 import '../theme/app_theme.dart';
 
 class GlassCard extends StatelessWidget {
   final Widget child;
-  final double width;
-  final double height;
+  final double? width;
+  final double? height;
   final EdgeInsetsGeometry padding;
+  final Color? borderColor;
 
   const GlassCard({
-    Key? key,
+    super.key,
     required this.child,
     this.width = double.infinity,
     this.height = double.infinity,
     this.padding = const EdgeInsets.all(20),
-  }) : super(key: key);
+    this.borderColor,
+  });
 
   @override
   Widget build(BuildContext context) {
     return Container(
       width: width,
       height: height,
-      padding: padding,
+      clipBehavior: Clip.antiAlias,
       decoration: BoxDecoration(
-        color: AppTheme.cardWhite,
         borderRadius: BorderRadius.circular(16),
-        boxShadow: [
-          BoxShadow(color: Colors.black.withOpacity(0.05), blurRadius: 10, offset: const Offset(0, 4))
-        ]
       ),
-      child: child,
+      child: BackdropFilter(
+        filter: ImageFilter.blur(sigmaX: 12, sigmaY: 12),
+        child: Container(
+          padding: padding,
+          decoration: BoxDecoration(
+            color: AppTheme.cardBackgroundTranslucent,
+            borderRadius: BorderRadius.circular(16),
+            border: Border.all(
+              color: borderColor ?? AppTheme.borderTranslucent,
+              width: 1.0,
+            ),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withValues(alpha: 0.15),
+                blurRadius: 15,
+                spreadRadius: -5,
+                offset: const Offset(0, 8),
+              ),
+            ],
+          ),
+          child: child,
+        ),
+      ),
     );
   }
 }

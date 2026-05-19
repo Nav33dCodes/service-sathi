@@ -7,7 +7,7 @@ void main() {
 }
 
 class ServiceSathiApp extends StatelessWidget {
-  const ServiceSathiApp({Key? key}) : super(key: key);
+  const ServiceSathiApp({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -18,6 +18,11 @@ class ServiceSathiApp extends StatelessWidget {
         brightness: Brightness.dark,
         scaffoldBackgroundColor: AppTheme.backgroundDeepBlue,
         primaryColor: AppTheme.emeraldGreen,
+        colorScheme: const ColorScheme.dark(
+          primary: AppTheme.emeraldGreen,
+          secondary: AppTheme.emeraldGreenDark,
+          surface: AppTheme.backgroundDeepBlue,
+        ),
       ),
       home: const MainLayout(),
     );

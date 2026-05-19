@@ -1,3 +1,4 @@
+import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lucide_icons/lucide_icons.dart';
@@ -7,10 +8,10 @@ import '../models/api_models.dart';
 import 'agent_logs_screen.dart';
 
 class RecommendationScreen extends StatefulWidget {
-  const RecommendationScreen({Key? key}) : super(key: key);
+  const RecommendationScreen({super.key});
 
   @override
-  _RecommendationScreenState createState() => _RecommendationScreenState();
+  State<RecommendationScreen> createState() => _RecommendationScreenState();
 }
 
 class _RecommendationScreenState extends State<RecommendationScreen> {
@@ -84,7 +85,7 @@ class _RecommendationScreenState extends State<RecommendationScreen> {
     final color = _serviceColor(provider.service);
     showModalBottomSheet(
       context: context,
-      backgroundColor: AppTheme.backgroundDeepBlue,
+      backgroundColor: Colors.transparent,
       isScrollControlled: true,
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.only(
@@ -93,176 +94,186 @@ class _RecommendationScreenState extends State<RecommendationScreen> {
         ),
       ),
       builder: (context) {
-        return Container(
-          padding: const EdgeInsets.fromLTRB(24, 16, 24, 30),
-          decoration: BoxDecoration(
-            color: AppTheme.backgroundDeepBlue,
-            borderRadius: const BorderRadius.only(
-              topLeft: Radius.circular(28),
-              topRight: Radius.circular(28),
-            ),
-            border: Border.all(color: Colors.white.withValues(alpha: 0.05)),
+        return ClipRRect(
+          borderRadius: const BorderRadius.only(
+            topLeft: Radius.circular(28),
+            topRight: Radius.circular(28),
           ),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Center(
-                child: Container(
-                  width: 40,
-                  height: 5,
-                  decoration: BoxDecoration(
-                    color: Colors.white.withValues(alpha: 0.15),
-                    borderRadius: BorderRadius.circular(10),
-                  ),
+          child: BackdropFilter(
+            filter: ImageFilter.blur(sigmaX: 20, sigmaY: 20),
+            child: Container(
+              padding: const EdgeInsets.fromLTRB(24, 16, 24, 30),
+              decoration: BoxDecoration(
+                color: Colors.black.withValues(alpha: 0.85),
+                borderRadius: const BorderRadius.only(
+                  topLeft: Radius.circular(28),
+                  topRight: Radius.circular(28),
                 ),
+                border: Border.all(color: Colors.white.withValues(alpha: 0.08)),
               ),
-              const SizedBox(height: 20),
-              Row(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Container(
-                    width: 56,
-                    height: 56,
-                    decoration: BoxDecoration(
-                      color: color.withValues(alpha: 0.15),
-                      borderRadius: BorderRadius.circular(16),
-                    ),
-                    child: Center(
-                      child: Text(
-                        _serviceIcon(provider.service),
-                        style: const TextStyle(fontSize: 26),
+                  Center(
+                    child: Container(
+                      width: 40,
+                      height: 5,
+                      decoration: BoxDecoration(
+                        color: Colors.white.withValues(alpha: 0.15),
+                        borderRadius: BorderRadius.circular(10),
                       ),
                     ),
                   ),
-                  const SizedBox(width: 16),
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          provider.name,
-                          style: GoogleFonts.outfit(
-                            color: AppTheme.textLight,
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        const SizedBox(height: 4),
-                        Text(
-                          provider.service,
-                          style: GoogleFonts.inter(
-                            color: color,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 13,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-              const SizedBox(height: 24),
-              Text(
-                'Rating & Reviews',
-                style: GoogleFonts.outfit(
-                  color: AppTheme.textLight,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 16,
-                ),
-              ),
-              const SizedBox(height: 12),
-              Row(
-                children: [
-                  Column(
+                  const SizedBox(height: 20),
+                  Row(
                     children: [
-                      Text(
-                        '${provider.rating}',
-                        style: GoogleFonts.outfit(
-                          color: AppTheme.textLight,
-                          fontSize: 36,
-                          fontWeight: FontWeight.bold,
+                      Container(
+                        width: 56,
+                        height: 56,
+                        decoration: BoxDecoration(
+                          color: color.withValues(alpha: 0.15),
+                          borderRadius: BorderRadius.circular(16),
+                          border: Border.all(color: color.withValues(alpha: 0.3)),
                         ),
-                      ),
-                      Row(
-                        children: List.generate(
-                          5,
-                          (i) => Icon(
-                            Icons.star_rounded,
-                            color: i < provider.rating.floor()
-                                ? Colors.amber
-                                : Colors.white.withValues(alpha: 0.1),
-                            size: 16,
+                        child: Center(
+                          child: Text(
+                            _serviceIcon(provider.service),
+                            style: const TextStyle(fontSize: 26),
                           ),
                         ),
                       ),
-                      const SizedBox(height: 4),
-                      Text(
-                        'Based on 20+ bookings',
-                        style: GoogleFonts.inter(
-                          color: AppTheme.textMuted,
-                          fontSize: 10,
+                      const SizedBox(width: 16),
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              provider.name,
+                              style: GoogleFonts.outfit(
+                                color: AppTheme.textLight,
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            const SizedBox(height: 4),
+                            Text(
+                              provider.service,
+                              style: GoogleFonts.inter(
+                                color: color,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 13,
+                              ),
+                            ),
+                          ],
                         ),
                       ),
                     ],
                   ),
-                  const SizedBox(width: 24),
-                  Expanded(
-                    child: Column(
-                      children: [
-                        _buildRatingBar(5, 0.85, color),
-                        _buildRatingBar(4, 0.10, color),
-                        _buildRatingBar(3, 0.03, color),
-                        _buildRatingBar(2, 0.01, color),
-                        _buildRatingBar(1, 0.01, color),
-                      ],
+                  const SizedBox(height: 24),
+                  Text(
+                    'Rating & Reviews',
+                    style: GoogleFonts.outfit(
+                      color: AppTheme.textLight,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 16,
                     ),
                   ),
-                ],
-              ),
-              const SizedBox(height: 24),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  _buildInfoItem(LucideIcons.briefcase, '${provider.experience} yrs', 'Experience'),
-                  _buildInfoItem(LucideIcons.wallet, provider.priceRange ?? r'$$', 'Price'),
-                  _buildInfoItem(LucideIcons.mapPin, provider.location, 'Location'),
-                ],
-              ),
-              const SizedBox(height: 30),
-              SizedBox(
-                width: double.infinity,
-                height: 52,
-                child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: AppTheme.emeraldGreen,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(16),
-                    ),
-                    elevation: 4,
-                    shadowColor: AppTheme.emeraldGreen.withValues(alpha: 0.4),
-                  ),
-                  onPressed: () {
-                    Navigator.pop(context);
-                    _bookAgent(provider);
-                  },
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
+                  const SizedBox(height: 12),
+                  Row(
                     children: [
-                      const Icon(LucideIcons.calendarCheck, color: Colors.white, size: 20),
-                      const SizedBox(width: 10),
-                      Text(
-                        'Book Agent Now',
-                        style: GoogleFonts.inter(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 16,
+                      Column(
+                        children: [
+                          Text(
+                            '${provider.rating}',
+                            style: GoogleFonts.outfit(
+                              color: AppTheme.textLight,
+                              fontSize: 36,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          Row(
+                            children: List.generate(
+                              5,
+                              (i) => Icon(
+                                Icons.star_rounded,
+                                color: i < provider.rating.floor()
+                                    ? Colors.amber
+                                    : Colors.white.withValues(alpha: 0.1),
+                                size: 16,
+                              ),
+                            ),
+                          ),
+                          const SizedBox(height: 4),
+                          Text(
+                            'Based on 20+ bookings',
+                            style: GoogleFonts.inter(
+                              color: AppTheme.textMuted,
+                              fontSize: 10,
+                            ),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(width: 24),
+                      Expanded(
+                        child: Column(
+                          children: [
+                            _buildRatingBar(5, 0.85, color),
+                            _buildRatingBar(4, 0.10, color),
+                            _buildRatingBar(3, 0.03, color),
+                            _buildRatingBar(2, 0.01, color),
+                            _buildRatingBar(1, 0.01, color),
+                          ],
                         ),
                       ),
                     ],
                   ),
-                ),
+                  const SizedBox(height: 24),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      _buildInfoItem(LucideIcons.briefcase, '${provider.experience} yrs', 'Experience'),
+                      _buildInfoItem(LucideIcons.wallet, provider.priceRange ?? r'$$', 'Price'),
+                      _buildInfoItem(LucideIcons.mapPin, provider.location, 'Location'),
+                    ],
+                  ),
+                  const SizedBox(height: 30),
+                  SizedBox(
+                    width: double.infinity,
+                    height: 52,
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: AppTheme.emeraldGreen,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(16),
+                        ),
+                        elevation: 4,
+                        shadowColor: AppTheme.emeraldGreen.withValues(alpha: 0.4),
+                      ),
+                      onPressed: () {
+                        Navigator.pop(context);
+                        _bookAgent(provider);
+                      },
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          const Icon(LucideIcons.calendarCheck, color: Colors.black, size: 20),
+                          const SizedBox(width: 10),
+                          Text(
+                            'Book Agent Now',
+                            style: GoogleFonts.inter(
+                              color: Colors.black,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 16,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
               ),
-            ],
+            ),
           ),
         );
       },
@@ -342,7 +353,7 @@ class _RecommendationScreenState extends State<RecommendationScreen> {
         decoration: BoxDecoration(
           color: AppTheme.lightBlue,
           borderRadius: BorderRadius.circular(18),
-          border: Border.all(color: Colors.white.withValues(alpha: 0.08)),
+          border: Border.all(color: color.withValues(alpha: 0.2)),
         ),
         child: Row(
           children: [
@@ -352,6 +363,7 @@ class _RecommendationScreenState extends State<RecommendationScreen> {
               decoration: BoxDecoration(
                 color: color.withValues(alpha: 0.15),
                 borderRadius: BorderRadius.circular(12),
+                border: Border.all(color: color.withValues(alpha: 0.25)),
               ),
               child: Center(
                 child: Text(
@@ -376,7 +388,7 @@ class _RecommendationScreenState extends State<RecommendationScreen> {
                   const SizedBox(height: 4),
                   Row(
                     children: [
-                      Icon(LucideIcons.mapPin, color: AppTheme.textMuted, size: 12),
+                      const Icon(LucideIcons.mapPin, color: AppTheme.textMuted, size: 12),
                       const SizedBox(width: 4),
                       Text(
                         '${provider.location} • ${provider.distance}km',
@@ -441,7 +453,7 @@ class _RecommendationScreenState extends State<RecommendationScreen> {
           border: Border.all(color: color.withValues(alpha: 0.3)),
           boxShadow: [
             BoxShadow(
-              color: color.withValues(alpha: 0.1),
+              color: color.withValues(alpha: 0.08),
               blurRadius: 15,
               offset: const Offset(0, 5),
             ),
@@ -454,7 +466,9 @@ class _RecommendationScreenState extends State<RecommendationScreen> {
               padding: const EdgeInsets.all(16),
               decoration: BoxDecoration(
                 gradient: LinearGradient(
-                  colors: [color.withValues(alpha: 0.2), color.withValues(alpha: 0.05)],
+                  colors: [color.withValues(alpha: 0.2), color.withValues(alpha: 0.02)],
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
                 ),
                 borderRadius: const BorderRadius.only(
                   topLeft: Radius.circular(20),
@@ -526,7 +540,7 @@ class _RecommendationScreenState extends State<RecommendationScreen> {
                   const SizedBox(height: 10),
                   Row(
                     children: [
-                      Icon(
+                      const Icon(
                         LucideIcons.mapPin,
                         color: AppTheme.textMuted,
                         size: 12,
@@ -548,7 +562,7 @@ class _RecommendationScreenState extends State<RecommendationScreen> {
                   const SizedBox(height: 6),
                   Row(
                     children: [
-                      Icon(
+                      const Icon(
                         LucideIcons.briefcase,
                         color: AppTheme.textMuted,
                         size: 12,
@@ -585,8 +599,8 @@ class _RecommendationScreenState extends State<RecommendationScreen> {
                       borderRadius: BorderRadius.circular(8),
                       border: Border.all(
                         color: provider.available
-                            ? color.withValues(alpha: 0.4)
-                            : Colors.grey.withValues(alpha: 0.3),
+                            ? color.withValues(alpha: 0.3)
+                            : Colors.grey.withValues(alpha: 0.2),
                       ),
                     ),
                     child: Center(
@@ -621,7 +635,7 @@ class _RecommendationScreenState extends State<RecommendationScreen> {
         decoration: BoxDecoration(
           color: AppTheme.lightBlue,
           borderRadius: BorderRadius.circular(16),
-          border: Border.all(color: color.withValues(alpha: 0.3)),
+          border: Border.all(color: color.withValues(alpha: 0.25)),
         ),
         child: Column(
           children: [
@@ -659,7 +673,7 @@ class _RecommendationScreenState extends State<RecommendationScreen> {
     return Scaffold(
       backgroundColor: AppTheme.backgroundDeepBlue,
       appBar: AppBar(
-        backgroundColor: AppTheme.backgroundDeepBlue,
+        backgroundColor: Colors.black,
         elevation: 0,
         automaticallyImplyLeading: false,
         title: Text(
@@ -675,9 +689,9 @@ class _RecommendationScreenState extends State<RecommendationScreen> {
             margin: const EdgeInsets.only(right: 16),
             padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
             decoration: BoxDecoration(
-              color: AppTheme.emeraldGreen.withValues(alpha: 0.15),
+              color: AppTheme.emeraldGreen.withValues(alpha: 0.1),
               borderRadius: BorderRadius.circular(20),
-              border: Border.all(color: AppTheme.emeraldGreen.withValues(alpha: 0.4)),
+              border: Border.all(color: AppTheme.emeraldGreen.withValues(alpha: 0.3)),
             ),
             child: Row(
               children: [
@@ -870,7 +884,10 @@ class _RecommendationScreenState extends State<RecommendationScreen> {
                         ),
                         const SizedBox(width: 12),
                         _buildStatCard(
-                          '${filteredProviders.isEmpty ? 0 : (filteredProviders.map((p) => p.rating).reduce((a, b) => a + b) / filteredProviders.length).toStringAsFixed(1)}',
+                          filteredProviders.isEmpty
+                              ? '0'
+                              : (filteredProviders.map((p) => p.rating).reduce((a, b) => a + b) / filteredProviders.length)
+                                  .toStringAsFixed(1),
                           'Avg ⭐',
                           LucideIcons.star,
                           Colors.amber,
@@ -1000,40 +1017,52 @@ class _RecommendationScreenState extends State<RecommendationScreen> {
             },
           ),
           if (_isBooking)
-            Container(
-              color: Colors.black.withValues(alpha: 0.7),
-              child: Center(
+            ClipRect(
+              child: BackdropFilter(
+                filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
                 child: Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 30),
-                  margin: const EdgeInsets.symmetric(horizontal: 40),
-                  decoration: BoxDecoration(
-                    color: AppTheme.lightBlue,
-                    borderRadius: BorderRadius.circular(24),
-                    border: Border.all(color: AppTheme.emeraldGreen.withValues(alpha: 0.3)),
-                  ),
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      const CircularProgressIndicator(color: AppTheme.emeraldGreen),
-                      const SizedBox(height: 20),
-                      Text(
-                        'AI Orchestrator Matching...',
-                        style: GoogleFonts.outfit(
-                          color: AppTheme.textLight,
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
-                        ),
+                  color: Colors.black.withValues(alpha: 0.7),
+                  child: Center(
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 30),
+                      margin: const EdgeInsets.symmetric(horizontal: 40),
+                      decoration: BoxDecoration(
+                        color: AppTheme.lightBlue,
+                        borderRadius: BorderRadius.circular(24),
+                        border: Border.all(color: AppTheme.emeraldGreen.withValues(alpha: 0.3)),
+                        boxShadow: [
+                          BoxShadow(
+                            color: AppTheme.emeraldGreen.withValues(alpha: 0.1),
+                            blurRadius: 20,
+                            spreadRadius: 2,
+                          )
+                        ],
                       ),
-                      const SizedBox(height: 8),
-                      Text(
-                        'Booking your agent and setting up the tracking pipeline...',
-                        style: GoogleFonts.inter(
-                          color: AppTheme.textMuted,
-                          fontSize: 12,
-                        ),
-                        textAlign: TextAlign.center,
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          const CircularProgressIndicator(color: AppTheme.emeraldGreen),
+                          const SizedBox(height: 20),
+                          Text(
+                            'AI Orchestrator Matching...',
+                            style: GoogleFonts.outfit(
+                              color: AppTheme.textLight,
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          const SizedBox(height: 8),
+                          Text(
+                            'Booking your agent and setting up the tracking pipeline...',
+                            style: GoogleFonts.inter(
+                              color: AppTheme.textMuted,
+                              fontSize: 12,
+                            ),
+                            textAlign: TextAlign.center,
+                          ),
+                        ],
                       ),
-                    ],
+                    ),
                   ),
                 ),
               ),

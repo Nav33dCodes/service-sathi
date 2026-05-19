@@ -4,6 +4,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../models/api_models.dart';
 import '../theme/app_theme.dart';
+import '../widgets/glass_card.dart';
 import 'package:lucide_icons/lucide_icons.dart';
 
 class ResultScreen extends StatefulWidget {
@@ -42,16 +43,14 @@ class _ResultScreenState extends State<ResultScreen> {
           width: 32,
           height: 32,
           decoration: BoxDecoration(
-            gradient: const LinearGradient(
-              colors: [AppTheme.emeraldGreen, Color(0xFF00BFA5)],
-            ),
+            gradient: AppTheme.emeraldGradient,
             borderRadius: BorderRadius.circular(8),
           ),
           alignment: Alignment.center,
           child: Text(
             number,
             style: GoogleFonts.outfit(
-              color: Colors.white,
+              color: Colors.black,
               fontWeight: FontWeight.bold,
               fontSize: 14,
             ),
@@ -76,9 +75,9 @@ class _ResultScreenState extends State<ResultScreen> {
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
       margin: const EdgeInsets.only(right: 8, bottom: 8),
       decoration: BoxDecoration(
-        color: c.withOpacity(0.12),
+        color: c.withValues(alpha: 0.12),
         borderRadius: BorderRadius.circular(20),
-        border: Border.all(color: c.withOpacity(0.4)),
+        border: Border.all(color: c.withValues(alpha: 0.4)),
       ),
       child: Row(
         mainAxisSize: MainAxisSize.min,
@@ -146,11 +145,7 @@ class _ResultScreenState extends State<ResultScreen> {
                 width: 56,
                 height: 56,
                 decoration: BoxDecoration(
-                  gradient: const LinearGradient(
-                    colors: [AppTheme.emeraldGreen, Color(0xFF00BFA5)],
-                    begin: Alignment.topLeft,
-                    end: Alignment.bottomRight,
-                  ),
+                  gradient: AppTheme.emeraldGradient,
                   borderRadius: BorderRadius.circular(16),
                 ),
                 child: Center(
@@ -159,7 +154,7 @@ class _ResultScreenState extends State<ResultScreen> {
                         ? provider.name[0].toUpperCase()
                         : '?',
                     style: GoogleFonts.outfit(
-                      color: Colors.white,
+                      color: Colors.black,
                       fontSize: 24,
                       fontWeight: FontWeight.bold,
                     ),
@@ -185,6 +180,7 @@ class _ResultScreenState extends State<ResultScreen> {
                       style: GoogleFonts.inter(
                         color: AppTheme.emeraldGreen,
                         fontSize: 13,
+                        fontWeight: FontWeight.w600,
                       ),
                     ),
                     const SizedBox(height: 4),
@@ -218,6 +214,7 @@ class _ResultScreenState extends State<ResultScreen> {
                           style: GoogleFonts.inter(
                             color: AppTheme.emeraldGreen,
                             fontSize: 12,
+                            fontWeight: FontWeight.w500,
                           ),
                         ),
                       ],
@@ -251,24 +248,29 @@ class _ResultScreenState extends State<ResultScreen> {
                     child: Container(
                       padding: const EdgeInsets.symmetric(vertical: 12),
                       decoration: BoxDecoration(
-                        gradient: const LinearGradient(
-                          colors: [AppTheme.emeraldGreen, Color(0xFF00BFA5)],
-                        ),
+                        gradient: AppTheme.emeraldGradient,
                         borderRadius: BorderRadius.circular(12),
+                        boxShadow: [
+                          BoxShadow(
+                            color: AppTheme.emeraldGreen.withValues(alpha: 0.2),
+                            blurRadius: 8,
+                            offset: const Offset(0, 3),
+                          )
+                        ],
                       ),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           const Icon(
                             LucideIcons.phone,
-                            color: Colors.white,
+                            color: Colors.black,
                             size: 16,
                           ),
                           const SizedBox(width: 8),
                           Text(
                             'Call Now',
                             style: GoogleFonts.inter(
-                              color: Colors.white,
+                              color: Colors.black,
                               fontWeight: FontWeight.bold,
                             ),
                           ),
@@ -288,7 +290,7 @@ class _ResultScreenState extends State<ResultScreen> {
                       color: AppTheme.lightBlue,
                       borderRadius: BorderRadius.circular(12),
                       border: Border.all(
-                        color: AppTheme.emeraldGreen.withOpacity(0.4),
+                        color: AppTheme.emeraldGreen.withValues(alpha: 0.3),
                       ),
                     ),
                     child: Row(
@@ -336,10 +338,10 @@ class _ResultScreenState extends State<ResultScreen> {
           height: 260,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(20),
-            border: Border.all(color: AppTheme.emeraldGreen.withOpacity(0.3)),
+            border: Border.all(color: AppTheme.emeraldGreen.withValues(alpha: 0.2)),
             boxShadow: [
               BoxShadow(
-                color: AppTheme.emeraldGreen.withOpacity(0.1),
+                color: AppTheme.emeraldGreen.withValues(alpha: 0.05),
                 blurRadius: 20,
                 spreadRadius: 2,
               ),
@@ -388,7 +390,7 @@ class _ResultScreenState extends State<ResultScreen> {
                       begin: Alignment.bottomCenter,
                       end: Alignment.topCenter,
                       colors: [
-                        AppTheme.backgroundDeepBlue.withOpacity(0.8),
+                        AppTheme.backgroundDeepBlue.withValues(alpha: 0.8),
                         Colors.transparent,
                       ],
                     ),
@@ -434,7 +436,7 @@ class _ResultScreenState extends State<ResultScreen> {
                         child: Text(
                           'Open',
                           style: GoogleFonts.inter(
-                            color: Colors.white,
+                            color: Colors.black,
                             fontSize: 11,
                             fontWeight: FontWeight.bold,
                           ),
@@ -500,12 +502,12 @@ class _ResultScreenState extends State<ResultScreen> {
             decoration: BoxDecoration(
               gradient: LinearGradient(
                 colors: [
-                  Colors.greenAccent.withOpacity(0.2),
-                  AppTheme.emeraldGreen.withOpacity(0.1),
+                  Colors.greenAccent.withValues(alpha: 0.15),
+                  AppTheme.emeraldGreen.withValues(alpha: 0.05),
                 ],
               ),
               borderRadius: BorderRadius.circular(8),
-              border: Border.all(color: AppTheme.emeraldGreen.withOpacity(0.5)),
+              border: Border.all(color: AppTheme.emeraldGreen.withValues(alpha: 0.4)),
             ),
             child: Row(
               mainAxisSize: MainAxisSize.min,
@@ -547,7 +549,7 @@ class _ResultScreenState extends State<ResultScreen> {
                     width: 8,
                     height: 8,
                     margin: const EdgeInsets.only(top: 5),
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                       color: AppTheme.emeraldGreen,
                       shape: BoxShape.circle,
                     ),
@@ -573,22 +575,12 @@ class _ResultScreenState extends State<ResultScreen> {
   }
 
   Widget _buildCard({required Widget child}) {
-    return Container(
-      width: double.infinity,
-      padding: const EdgeInsets.all(20),
-      decoration: BoxDecoration(
-        color: AppTheme.lightBlue,
-        borderRadius: BorderRadius.circular(20),
-        border: Border.all(color: Colors.white.withOpacity(0.08)),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.2),
-            blurRadius: 15,
-            offset: const Offset(0, 5),
-          ),
-        ],
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 16.0),
+      child: GlassCard(
+        height: null,
+        child: child,
       ),
-      child: child,
     );
   }
 
@@ -603,10 +595,10 @@ class _ResultScreenState extends State<ResultScreen> {
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
               decoration: BoxDecoration(
-                color: AppTheme.backgroundDeepBlue,
+                color: Colors.black,
                 border: Border(
                   bottom: BorderSide(
-                    color: Colors.white.withOpacity(0.08),
+                    color: Colors.white.withValues(alpha: 0.05),
                     width: 1,
                   ),
                 ),
@@ -621,7 +613,7 @@ class _ResultScreenState extends State<ResultScreen> {
                         color: AppTheme.lightBlue,
                         borderRadius: BorderRadius.circular(10),
                         border: Border.all(
-                          color: Colors.white.withOpacity(0.1),
+                          color: Colors.white.withValues(alpha: 0.05),
                         ),
                       ),
                       child: const Icon(
@@ -659,10 +651,10 @@ class _ResultScreenState extends State<ResultScreen> {
                       vertical: 5,
                     ),
                     decoration: BoxDecoration(
-                      color: AppTheme.emeraldGreen.withOpacity(0.15),
+                      color: AppTheme.emeraldGreen.withValues(alpha: 0.12),
                       borderRadius: BorderRadius.circular(20),
                       border: Border.all(
-                        color: AppTheme.emeraldGreen.withOpacity(0.4),
+                        color: AppTheme.emeraldGreen.withValues(alpha: 0.3),
                       ),
                     ),
                     child: Row(
@@ -693,20 +685,21 @@ class _ResultScreenState extends State<ResultScreen> {
             // Content
             Expanded(
               child: ListView(
+                physics: const BouncingScrollPhysics(),
                 padding: const EdgeInsets.all(20),
                 children: [
                   // Section 1: Intent
                   _buildSectionTitle('1', 'Intent Understood'),
                   const SizedBox(height: 12),
                   _buildIntentCard(),
-                  const SizedBox(height: 28),
+                  const SizedBox(height: 16),
                   // Section 2: Provider
                   _buildSectionTitle('2', 'Best Provider Match'),
                   const SizedBox(height: 12),
                   _buildProviderCard(),
                   const SizedBox(height: 16),
                   _buildReasoningCard(),
-                  const SizedBox(height: 28),
+                  const SizedBox(height: 16),
                   // Section 3: Map
                   if (widget.response.recommendedProvider != null) ...[
                     _buildMapCard(),

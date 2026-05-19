@@ -7,10 +7,10 @@ import '../services/api_service.dart';
 import '../models/api_models.dart';
 
 class BookingsScreen extends StatefulWidget {
-  const BookingsScreen({Key? key}) : super(key: key);
+  const BookingsScreen({super.key});
 
   @override
-  _BookingsScreenState createState() => _BookingsScreenState();
+  State<BookingsScreen> createState() => _BookingsScreenState();
 }
 
 class _BookingsScreenState extends State<BookingsScreen> {
@@ -43,43 +43,56 @@ class _BookingsScreenState extends State<BookingsScreen> {
 
   Widget _buildBookingItem(BookingConfirmation booking) {
     final statusColor = _getStatusColor(booking.status);
-    // Since the API doesn't return a specific "service name" but returns the provider name,
-    // we'll use a generic title or just "Service Booking" if service is unknown.
     return Padding(
       padding: const EdgeInsets.only(bottom: 16.0),
       child: GlassCard(
-        height: 140,
+        height: null,
+        borderColor: statusColor.withValues(alpha: 0.25),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  "Service Booking", // Default title
-                  style: GoogleFonts.outfit(color: AppTheme.textDark, fontSize: 18, fontWeight: FontWeight.bold),
+                  "Service Booking",
+                  style: GoogleFonts.outfit(
+                    color: AppTheme.textLight,
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
                 Container(
                   padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
                   decoration: BoxDecoration(
-                    color: statusColor.withOpacity(0.1),
+                    color: statusColor.withValues(alpha: 0.1),
                     borderRadius: BorderRadius.circular(12),
-                    border: Border.all(color: statusColor.withOpacity(0.5)),
+                    border: Border.all(color: statusColor.withValues(alpha: 0.4)),
                   ),
                   child: Text(
                     booking.status.toUpperCase(),
-                    style: GoogleFonts.inter(color: statusColor, fontSize: 10, fontWeight: FontWeight.bold),
+                    style: GoogleFonts.inter(
+                      color: statusColor,
+                      fontSize: 10,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                 ),
               ],
             ),
-            const SizedBox(height: 8),
+            const SizedBox(height: 12),
             Row(
               children: [
                 const Icon(LucideIcons.user, color: AppTheme.textMuted, size: 16),
                 const SizedBox(width: 8),
-                Text(booking.providerName, style: GoogleFonts.inter(color: AppTheme.textMuted, fontSize: 14)),
+                Text(
+                  booking.providerName,
+                  style: GoogleFonts.inter(
+                    color: AppTheme.textLight.withValues(alpha: 0.9),
+                    fontSize: 14,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
               ],
             ),
             const SizedBox(height: 8),
@@ -87,7 +100,13 @@ class _BookingsScreenState extends State<BookingsScreen> {
               children: [
                 const Icon(LucideIcons.calendar, color: AppTheme.textMuted, size: 16),
                 const SizedBox(width: 8),
-                Text(booking.scheduledTime, style: GoogleFonts.inter(color: AppTheme.textMuted, fontSize: 14)),
+                Text(
+                  booking.scheduledTime,
+                  style: GoogleFonts.inter(
+                    color: AppTheme.textMuted,
+                    fontSize: 13,
+                  ),
+                ),
               ],
             ),
           ],
@@ -117,13 +136,20 @@ class _BookingsScreenState extends State<BookingsScreen> {
                       color: Colors.white,
                     ),
                   ),
-                  IconButton(
-                    icon: const Icon(LucideIcons.refreshCw, color: AppTheme.emeraldGreen),
-                    onPressed: _fetchBookings,
+                  Container(
+                    decoration: BoxDecoration(
+                      color: AppTheme.lightBlue,
+                      shape: BoxShape.circle,
+                      border: Border.all(color: Colors.white.withValues(alpha: 0.05)),
+                    ),
+                    child: IconButton(
+                      icon: const Icon(LucideIcons.refreshCw, color: AppTheme.emeraldGreen, size: 20),
+                      onPressed: _fetchBookings,
+                    ),
                   )
                 ],
               ),
-              const SizedBox(height: 20),
+              const SizedBox(height: 24),
               Expanded(
                 child: FutureBuilder<List<BookingConfirmation>>(
                   future: _bookingsFuture,
@@ -149,19 +175,23 @@ class _BookingsScreenState extends State<BookingsScreen> {
 
                     final bookings = snapshot.data!;
                     
-                    // Add 2 fake completed bookings for the demo
-                    bookings.add(BookingConfirmation(
-                      bookingId: 9991,
-                      providerName: "Hassan Plumbers",
-                      scheduledTime: "10 May, 2:00 PM",
-                      status: "Completed",
-                    ));
-                    bookings.add(BookingConfirmation(
-                      bookingId: 9992,
-                      providerName: "Sana Beautician",
-                      scheduledTime: "05 May, 10:00 AM",
-                      status: "Completed",
-                    ));
+                    // Add 2 fake completed bookings for the demo if not already added
+                    if (!bookings.any((b) => b.bookingId == 9991)) {
+                      bookings.add(BookingConfirmation(
+                        bookingId: 9991,
+                        providerName: "Hassan Plumbers",
+                        scheduledTime: "10 May, 2:00 PM",
+                        status: "Completed",
+                      ));
+                    }
+                    if (!bookings.any((b) => b.bookingId == 9992)) {
+                      bookings.add(BookingConfirmation(
+                        bookingId: 9992,
+                        providerName: "Sana Beautician",
+                        scheduledTime: "05 May, 10:00 AM",
+                        status: "Completed",
+                      ));
+                    }
 
                     // Sort bookings with newest first (assuming higher ID = newer)
                     bookings.sort((a, b) => b.bookingId.compareTo(a.bookingId));

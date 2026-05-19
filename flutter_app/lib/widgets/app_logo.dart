@@ -6,18 +6,18 @@ class ServiceSathiLogo extends StatelessWidget {
   final bool isDark;
 
   const ServiceSathiLogo({
-    Key? key,
+    super.key,
     this.size = 80.0,
     this.showText = true,
     this.isDark = true,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
-    // Premium color palette (Deep Navy Blue & Emerald Green)
-    final Color primaryBlue = const Color(0xFF0A3D62);
-    final Color emeraldGreen = const Color(0xFF00D9FF);
-    final Color darkBackground = const Color(0xFF0D1117);
+    // Premium color palette (OLED000 cyber style)
+    final Color primaryBlue = const Color(0xFF000000);
+    final Color emeraldGreen = const Color(0xFF00FF9D);
+    final Color darkBackground = const Color(0xFF000000);
 
     return Column(
       mainAxisSize: MainAxisSize.min,

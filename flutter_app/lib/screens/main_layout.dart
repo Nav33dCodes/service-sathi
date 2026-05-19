@@ -1,3 +1,4 @@
+import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:lucide_icons/lucide_icons.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -6,12 +7,13 @@ import 'home_chat_screen.dart';
 import 'bookings_screen.dart';
 import 'recommendation_screen.dart';
 import 'agent_logs_screen.dart';
+import 'profile_screen.dart';
 
 class MainLayout extends StatefulWidget {
-  const MainLayout({Key? key}) : super(key: key);
+  const MainLayout({super.key});
 
   @override
-  _MainLayoutState createState() => _MainLayoutState();
+  State<MainLayout> createState() => _MainLayoutState();
 }
 
 class _MainLayoutState extends State<MainLayout> {
@@ -22,6 +24,7 @@ class _MainLayoutState extends State<MainLayout> {
     const BookingsScreen(),
     const RecommendationScreen(),
     const AgentLogsScreen(),
+    const ProfileScreen(),
   ];
 
   @override
@@ -32,21 +35,33 @@ class _MainLayoutState extends State<MainLayout> {
         index: _currentIndex,
         children: _screens,
       ),
-      bottomNavigationBar: Container(
-        padding: const EdgeInsets.only(top: 12, bottom: 24),
-        decoration: BoxDecoration(
-          color: AppTheme.lightBlue,
-          border: Border(top: BorderSide(color: Colors.white.withValues(alpha: 0.08))),
-          boxShadow: [BoxShadow(color: Colors.black.withValues(alpha: 0.3), blurRadius: 20, offset: const Offset(0, -5))],
-        ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            _buildNavItem(0, LucideIcons.messageSquare, "Chat"),
-            _buildNavItem(1, LucideIcons.calendar, "Bookings"),
-            _buildNavItem(2, LucideIcons.compass, "Explore"),
-            _buildNavItem(3, LucideIcons.terminal, "Logs"),
-          ],
+      bottomNavigationBar: ClipRect(
+        child: BackdropFilter(
+          filter: ImageFilter.blur(sigmaX: 15, sigmaY: 15),
+          child: Container(
+            padding: const EdgeInsets.only(top: 12, bottom: 24),
+            decoration: BoxDecoration(
+              color: Colors.black.withValues(alpha: 0.75),
+              border: Border(top: BorderSide(color: Colors.white.withValues(alpha: 0.08))),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black.withValues(alpha: 0.4),
+                  blurRadius: 20,
+                  offset: const Offset(0, -5),
+                )
+              ],
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                _buildNavItem(0, LucideIcons.messageSquare, "Chat"),
+                _buildNavItem(1, LucideIcons.calendar, "Bookings"),
+                _buildNavItem(2, LucideIcons.compass, "Explore"),
+                _buildNavItem(3, LucideIcons.terminal, "Logs"),
+                _buildNavItem(4, LucideIcons.user, "Profile"),
+              ],
+            ),
+          ),
         ),
       ),
     );
@@ -59,22 +74,29 @@ class _MainLayoutState extends State<MainLayout> {
       behavior: HitTestBehavior.opaque,
       child: AnimatedContainer(
         duration: const Duration(milliseconds: 200),
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+        padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
         decoration: BoxDecoration(
-          color: isSelected ? AppTheme.emeraldGreen.withValues(alpha: 0.12) : Colors.transparent,
+          color: isSelected ? AppTheme.emeraldGreen.withValues(alpha: 0.08) : Colors.transparent,
           borderRadius: BorderRadius.circular(12),
-          border: isSelected ? Border.all(color: AppTheme.emeraldGreen.withValues(alpha: 0.3)) : null,
+          border: isSelected ? Border.all(color: AppTheme.emeraldGreen.withValues(alpha: 0.2)) : null,
         ),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Icon(icon, color: isSelected ? AppTheme.emeraldGreen : AppTheme.textMuted, size: 22),
-            const SizedBox(height: 4),
-            Text(label, style: GoogleFonts.inter(
+            Icon(
+              icon,
               color: isSelected ? AppTheme.emeraldGreen : AppTheme.textMuted,
-              fontSize: 11,
-              fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
-            )),
+              size: 20,
+            ),
+            const SizedBox(height: 4),
+            Text(
+              label,
+              style: GoogleFonts.inter(
+                color: isSelected ? AppTheme.emeraldGreen : AppTheme.textMuted,
+                fontSize: 10,
+                fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
+              ),
+            ),
           ],
         ),
       ),
