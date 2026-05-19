@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'theme/app_theme.dart';
 import 'screens/main_layout.dart';
+import 'screens/login_screen.dart';
+import 'services/api_service.dart';
 
 void main() {
   runApp(const ServiceSathiApp());
@@ -24,7 +26,24 @@ class ServiceSathiApp extends StatelessWidget {
           surface: AppTheme.backgroundDeepBlue,
         ),
       ),
-      home: const MainLayout(),
+      home: FutureBuilder<bool>(
+        future: ApiService().isAuthenticated(),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const Scaffold(
+              backgroundColor: Colors.black,
+              body: Center(
+                child: CircularProgressIndicator(color: AppTheme.emeraldGreen),
+              ),
+            );
+          }
+          if (snapshot.data == true) {
+            return const MainLayout();
+          } else {
+            return const LoginScreen();
+          }
+        },
+      ),
     );
   }
 }

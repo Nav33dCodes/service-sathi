@@ -3,14 +3,19 @@ from sqlalchemy.orm import Session
 from typing import List, Optional
 
 from app.core.database import get_db
+from app.core.security import get_current_user
 from app.models.schemas import ServiceRequest, OrchestratorResponse, ProviderResponse, BookingConfirmation
-from app.models.domain import ProviderModel, BookingModel
+from app.models.domain import ProviderModel, BookingModel, UserModel
 from app.services.agent import run_orchestrator, geocode_location, haversine
 
 router = APIRouter()
 
 @router.post("/request", response_model=OrchestratorResponse)
-def handle_request(request: ServiceRequest, db: Session = Depends(get_db)):
+def handle_request(
+    request: ServiceRequest,
+    db: Session = Depends(get_db),
+    current_user: UserModel = Depends(get_current_user)
+):
     try:
         response = run_orchestrator(db, request.text)
         return response
@@ -20,7 +25,8 @@ def handle_request(request: ServiceRequest, db: Session = Depends(get_db)):
 @router.get("/providers", response_model=List[ProviderResponse])
 def get_providers(
     db: Session = Depends(get_db),
-    location: Optional[str] = Query(None, description="User location for distance calc e.g. G-13")
+    location: Optional[str] = Query(None, description="User location for distance calc e.g. G-13"),
+    current_user: UserModel = Depends(get_current_user)
 ):
     providers = db.query(ProviderModel).all()
     
@@ -53,7 +59,10 @@ def get_providers(
     return results
 
 @router.get("/bookings", response_model=List[BookingConfirmation])
-def get_bookings(db: Session = Depends(get_db)):
+def get_bookings(
+    db: Session = Depends(get_db),
+    current_user: UserModel = Depends(get_current_user)
+):
     bookings = db.query(BookingModel).all()
     results = []
     for b in bookings:
