@@ -1,0 +1,10 @@
+fastapi
+uvicorn
+groq
+httpx<0.28.0
+pydantic
+pydantic-settings
+python-dotenv
+sqlalchemy
+psycopg2-binary
+googlemaps
