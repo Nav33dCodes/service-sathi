@@ -113,6 +113,17 @@
 
 ---
 
+## 🤖 Google Antigravity Orchestration
+
+ServiceSathi AI is built on the **Google Antigravity** platform to orchestrate the backend agentic pipeline and design the system logic. Here is how Google Antigravity is used:
+
+- **Agent Workflow Orchestration**: Coordinates the sequential execution from `IntentAgent` ➡️ `DiscoveryAgent` ➡️ `DecisionAgent` ➡️ `ExecutionAgent`.
+- **Tool Integration**: Connects the DiscoveryAgent with external tools (Google Maps Geocoding API) to perform live coordinate geocoding and calculate physical distance using the Haversine formula.
+- **Action Execution**: Manages automated writes to the live PostgreSQL database and schedules the follow-up reminder queue dynamically.
+- **Trace & Log Transparency**: Produces clean trace logs containing reasoning paths, step statuses, and tool execution logs for the frontend mobile application.
+
+---
+
 ## 🚀 Tech Stack
 
 | Layer | Technology | Purpose |
