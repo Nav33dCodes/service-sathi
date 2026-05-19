@@ -1,10 +1,10 @@
 <div align="center">
 
-<img src="https://capsule-render.vercel.app/api?type=waving&color=0:0d1117,50:0a3d62,100:1e3799&height=200&section=header&text=ServiceSathi%20AI&fontSize=60&fontColor=ffffff&fontAlignY=38&desc=Ghar%20ki%20zaroorat%2C%20ek%20awaaz%20mein.&descAlignY=58&descSize=20&animation=fadeIn" width="100%"/>
+<img src="https://capsule-render.vercel.app/api?type=waving&color=auto&customColorList=10&height=220&section=header&text=ServiceSathi%20AI&fontSize=70&fontColor=ffffff&fontAlignY=35&desc=Ghar%20ki%20zaroorat%2C%20ek%20awaaz%20mein.&descAlignY=58&descSize=22&animation=scaleIn" width="100%"/>
 
 <br/>
 
-[![Typing SVG](https://readme-typing-svg.demolab.com?font=Fira+Code&size=22&duration=3000&pause=800&color=00D9FF&center=true&vCenter=true&multiline=false&width=700&lines=🤖+AI-Powered+Home+Service+Discovery;🗣️+Supports+Urdu+%2B+English+%2B+Roman+Urdu;📍+Real-Time+Location+%26+Distance+Matching;🚀+Multi-Agent+LLM+Orchestration+Pipeline;📱+Flutter+App+%2B+FastAPI+Backend)](https://git.io/typing-svg)
+[![Typing SVG](https://readme-typing-svg.demolab.com?font=Fira+Code&weight=600&size=24&duration=2500&pause=1000&color=00D9FF&center=true&vCenter=true&multiline=false&width=750&lines=🤖+AI-Powered+Home+Service+Discovery;🗣️+Urdu+%2B+English+%2B+Roman+Urdu+NLU;📍+Real-Time+Geocoded+Distance+Matching;🚀+Multi-Agent+LLM+Orchestration;📱+Flutter+App+%2B+FastAPI+Backend)](https://git.io/typing-svg)
 
 <br/>
 
@@ -387,10 +387,12 @@ curl -X POST http://localhost:8000/api/request \
 
 <div align="center">
 
-| 👑 Leader | 💻 Developer |
-|-----------|-------------|
-| **Sanan Malik** | **Naveed Ahmed** |
-| Project Lead & Vision | Backend · AI · Flutter |
+| 👑 Sanan Malik | 💻 Naveed Ahmed |
+| :---: | :---: |
+| **Developer & Leader** | **Developer** |
+| Project Architecture, NLU & Lead | Core Backend, AI Agents & Flutter App |
+
+<br/>
 
 *Built with ❤️ for a Hackathon Demo 🏆*
 
