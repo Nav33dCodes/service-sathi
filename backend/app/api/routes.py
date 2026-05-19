@@ -82,3 +82,29 @@ def get_bookings(
 @router.get("/health")
 def health_check():
     return {"status": "ok", "service": "ServiceSathi AI Backend", "version": "2.0"}
+
+@router.get("/debug-db")
+def debug_db(db: Session = Depends(get_db)):
+    try:
+        from sqlalchemy import inspect
+        from app.core.config import settings
+        from app.core.database import engine, Base
+        
+        inspector = inspect(engine)
+        tables_before = inspector.get_table_names()
+        
+        # Explicitly run create_all to force creation of any missing tables
+        Base.metadata.create_all(bind=engine)
+        
+        tables_after = inspector.get_table_names()
+        return {
+            "tables_before": tables_before,
+            "tables_after": tables_after,
+            "database_url_host": settings.database_url.split("@")[-1] if "@" in settings.database_url else "sqlite/local"
+        }
+    except Exception as e:
+        import traceback
+        return {
+            "error": str(e),
+            "trace": traceback.format_exc()
+        }
